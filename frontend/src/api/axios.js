@@ -1,7 +1,10 @@
 import axios from "axios";
-//axios instance with base url and interceptor to add token to headers if it exists in local storage
+
+// axios instance with base URL from Vite env or local fallback.
 const API = axios.create({
-  baseURL: "https://mern-taskmanager-1-5ccb.onrender.com/api",
+  baseURL:
+    import.meta.env.VITE_API_URL ||
+    "https://mern-taskmanager-1-5ccb.onrender.com/api",
 });
 
 API.interceptors.request.use((config) => {
