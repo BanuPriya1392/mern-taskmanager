@@ -26,9 +26,9 @@ connectDB();
 const app = express();
 
 const allowedOrigins = [
-  process.env.CLIENT_URL || "http://localhost:5173",
-  "https://mern-taskmanager-1-5ccb.onrender.com",
+  "http://localhost:5173",
   "https://mern-taskmanager-drab.vercel.app",
+  "https://mern-taskmanager-ddc1sxh6i-banupriyas-projects-70cfb2f5.vercel.app",
 ];
 
 const corsOptions = {
