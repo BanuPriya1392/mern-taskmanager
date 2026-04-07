@@ -4,7 +4,7 @@ import axios from "axios";
 const API = axios.create({
   baseURL:
     import.meta.env.VITE_API_URL ||
-    "https://mern-taskmanager-1-5ccb.onrender.com/api",
+    "https://mern-taskmanager-63fr.onrender.com/api",
 });
 
 API.interceptors.request.use((config) => {
