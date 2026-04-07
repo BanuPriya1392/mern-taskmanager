@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const Task = require('../models/Task');
 
 exports.getTasks = async (req, res) => {
@@ -14,6 +15,12 @@ exports.getTasks = async (req, res) => {
 exports.createTask = async (req, res) => {
   try {
     const { title, description, status, priority, dueDate, assignedTo } = req.body;
+
+    // Validate assignedTo if provided
+    if (assignedTo && !mongoose.Types.ObjectId.isValid(assignedTo)) {
+      return res.status(400).json({ message: 'Invalid assignedTo user ID' });
+    }
+
     const task = await Task.create({
       user: req.user.id,
       title, description, status, priority, dueDate,
@@ -27,6 +34,11 @@ exports.createTask = async (req, res) => {
 
 exports.updateTask = async (req, res) => {
   try {
+    // Validate assignedTo if provided in update
+    if (req.body.assignedTo && !mongoose.Types.ObjectId.isValid(req.body.assignedTo)) {
+      return res.status(400).json({ message: 'Invalid assignedTo user ID' });
+    }
+
     const task = await Task.findOneAndUpdate(
       { _id: req.params.id, $or: [{ user: req.user.id }, { assignedTo: req.user.id }] },
       req.body,
